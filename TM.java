@@ -82,6 +82,14 @@ public class TM {
 		}
 	}
 
+public static boolean acceptState(State curr,State[] Accept){
+	for(int i = 0;i<Accept.length;i++){
+		if(Accept[i]==curr)
+			return true;
+	}
+	return false;
+}
+
 	// Turing Machine simulator
 
 	public static boolean simulate(List<Symbol> input) {
@@ -90,6 +98,40 @@ public class TM {
 		 * If at some point no matching transitions can be found,
 		 * stop the machine and return whether accepting or not.
 		 */
-		return true;
+		 int index = 0;
+		 State curr = INITIAL;
+		 System.out.println(curr);
+		 Symbol c = input.get(index);
+		 System.out.println(c);
+		 for(;;){
+			 boolean found = false;
+		 	for(int i = 0;i<TRANSITIONS.length;i++){
+				c=input.get(index);
+			 	if(TRANSITIONS[i].fromState==curr && TRANSITIONS[i].withSymbol==c){
+					found = true;
+					System.out.println(found);
+					curr = TRANSITIONS[i].toState;
+					System.out.println(curr);
+					System.out.println(input.get(index));
+				 	input.set(index,TRANSITIONS[i].writeSymbol);
+					System.out.println(input.get(index));
+				 	if(acceptState(curr,ACCEPTING)){
+					 	return true;
+				 	}
+				 	if(TRANSITIONS[i].direction==Direction.Right){
+					 	index++;
+						System.out.println("right");
+				 	}else{
+					 	index--;
+						System.out.println("left");
+				 	}
+			 	}
+				System.out.println(index);
+				System.out.println(input.get(index));
+		 	}
+			if(found==false){
+				return false;
+			}
+	 	}
 	}
 }
