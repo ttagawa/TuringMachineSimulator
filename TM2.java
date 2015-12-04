@@ -12,7 +12,7 @@ public class TM2 {
 
 	// Turing machine definition (States, Symbols, Transitions, INITIAL, ACCEPTING)
 
-	private enum State { Q0, Q1, Q2, Q3, Q4, Q5, Q6 }
+	private enum State { Q0, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9 }
 
 	private enum Symbol { A, B, C, EMPTY, EOS }
 
@@ -37,23 +37,42 @@ public class TM2 {
 	private static Transition[] TRANSITIONS = {
 		new Transition(State.Q0, Symbol.EOS, State.Q1, Symbol.EOS, Direction.Right),
 
-		new Transition(State.Q1, Symbol.EMPTY, State.Q1, Symbol.EMPTY, Direction.Right),
-		new Transition(State.Q1, Symbol.A, State.Q2, Symbol.EMPTY, Direction.Right),
-		new Transition(State.Q1, Symbol.EOS, State.Q6, Symbol.EOS, Direction.Right),
+		new Transition(State.Q1, Symbol.A, State.Q2, Symbol.A, Direction.Right),
+		new Transition(State.Q1, Symbol.EOS, State.Q9, Symbol.EOS, Direction.Right),
 
-		new Transition(State.Q2, Symbol.B, State.Q3, Symbol.EMPTY, Direction.Left),
-		new Transition(State.Q2, Symbol.C, State.Q3, Symbol.EMPTY, Direction.Left),
-		new Transition(State.Q2, Symbol.EMPTY, State.Q2, Symbol.EMPTY, Direction.Right),
 		new Transition(State.Q2, Symbol.A, State.Q2, Symbol.A, Direction.Right),
+		new Transition(State.Q2, Symbol.B, State.Q3, Symbol.B, Direction.Right),
+		new Transition(State.Q2, Symbol.C, State.Q4, Symbol.C, Direction.Right),
 
-		new Transition(State.Q3, Symbol.A, State.Q3, Symbol.A, Direction.Left),
-		new Transition(State.Q3, Symbol.EMPTY, State.Q3, Symbol.EMPTY, Direction.Left),
-		new Transition(State.Q3, Symbol.EOS, State.Q1, Symbol.EOS, Direction.Right),
+		new Transition(State.Q3, Symbol.B, State.Q3, Symbol.B, Direction.Right),
+		new Transition(State.Q3, Symbol.EOS, State.Q5, Symbol.EOS, Direction.Left),
+		new Transition(State.Q3, Symbol.C, State.Q4, Symbol.C, Direction.Right),
+
+		new Transition(State.Q4, Symbol.C, State.Q4, Symbol.C, Direction.Right),
+		new Transition(State.Q4, Symbol.EOS, State.Q5, Symbol.EOS, Direction.Left),
+
+		new Transition(State.Q5, Symbol.C, State.Q5, Symbol.C, Direction.Left),
+		new Transition(State.Q5, Symbol.B, State.Q5, Symbol.B, Direction.Left),
+		new Transition(State.Q5, Symbol.A, State.Q5, Symbol.A, Direction.Left),
+		new Transition(State.Q5, Symbol.EOS, State.Q6, Symbol.EOS, Direction.Right),
+
+		new Transition(State.Q6, Symbol.EMPTY, State.Q6, Symbol.EMPTY, Direction.Right),
+		new Transition(State.Q6, Symbol.A, State.Q7, Symbol.EMPTY, Direction.Right),
+		new Transition(State.Q6, Symbol.EOS, State.Q9, Symbol.EOS, Direction.Right),
+
+		new Transition(State.Q7, Symbol.EMPTY, State.Q7, Symbol.EMPTY, Direction.Right),
+		new Transition(State.Q7, Symbol.A, State.Q7, Symbol.A, Direction.Right),
+		new Transition(State.Q7, Symbol.C, State.Q8, Symbol.EMPTY, Direction.Left),
+		new Transition(State.Q7, Symbol.B, State.Q8, Symbol.EMPTY, Direction.Left),
+
+		new Transition(State.Q8, Symbol.EMPTY, State.Q8, Symbol.EMPTY, Direction.Left),
+		new Transition(State.Q8, Symbol.A, State.Q8, Symbol.A, Direction.Left),
+		new Transition(State.Q8, Symbol.EOS, State.Q6, Symbol.EOS, Direction.Right)
 	};
 
 	private static final State INITIAL = State.Q0;
 
-	private static final State[] ACCEPTING = { State.Q6 };
+	private static final State[] ACCEPTING = { State.Q9 };
 
 	// Command-line interface
 
